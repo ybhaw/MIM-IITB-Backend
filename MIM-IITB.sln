@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIM-IITB", "MIM-IITB\MIM-IITB.csproj", "{197D83E0-93B6-46D5-B8A3-7023E5D2F5E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{197D83E0-93B6-46D5-B8A3-7023E5D2F5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197D83E0-93B6-46D5-B8A3-7023E5D2F5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197D83E0-93B6-46D5-B8A3-7023E5D2F5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197D83E0-93B6-46D5-B8A3-7023E5D2F5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
