@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using MIM_IITB.Config;
 using MIM_IITB.Data.Interface;
 using MIM_IITB.Data.Repository;
+using Microsoft.OpenApi.Models;
 
 namespace MIM_IITB
 {
@@ -34,6 +35,11 @@ namespace MIM_IITB
             services.AddTransient<IFoodRepository, FoodRepository>();
             
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo() {Title = "MIM-IITB", Version = Configuration["version"]});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +50,9 @@ namespace MIM_IITB
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                $"{Configuration["ProjectName"]} {Configuration["Version"]}"); });
             app.UseHttpsRedirection();
 
             app.UseRouting();
