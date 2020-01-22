@@ -1,4 +1,4 @@
-﻿using MIM_IITB.Data.Models;
+﻿using MIM_IITB.Data.Entities;
 
 namespace MIM_IITB.Data.Interface
 {

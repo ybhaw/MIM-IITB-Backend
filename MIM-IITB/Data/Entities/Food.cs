@@ -1,4 +1,4 @@
-﻿namespace MIM_IITB.Data.Models
+﻿namespace MIM_IITB.Data.Entities
 {
     public class Food : Model
     {
