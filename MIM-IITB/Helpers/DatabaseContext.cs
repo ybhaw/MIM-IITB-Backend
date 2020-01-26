@@ -8,6 +8,8 @@ namespace MIM_IITB.Helpers
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodType> FoodTypes { get; set; }
         public DbSet<Intake> Intakes { get; set; }
+        public DbSet<IntakeBatch> IntakeBatches { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
         
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
