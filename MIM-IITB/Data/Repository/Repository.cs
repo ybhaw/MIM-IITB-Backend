@@ -9,18 +9,17 @@ using MIM_IITB.Helpers;
 
 namespace MIM_IITB.Data.Repository
 {
-    public class Repository<TModel> : IRepository<TModel> where TModel : Model
+    public class Repository<TModel> : IRepository<TModel> where TModel : EntityBase
     {
-        private readonly DatabaseContext _context;
+        protected readonly DatabaseContext _context;
 
         public Repository(DatabaseContext context) => _context = context;
 
         private void Save() => _context.SaveChanges();
         private async Task SaveAsync() => await _context.SaveChangesAsync();
 
-        public IEnumerable<TModel> GetAll() => _context.Set<TModel>();
-
-        public IEnumerable<TModel> Find(Func<TModel, bool> predicate) => _context.Set<TModel>().Where(predicate);
+        public IQueryable<TModel> GetAll() => _context.Set<TModel>();
+        public IQueryable<TModel> Find(Func<TModel, bool> predicate) => _context.Set<TModel>().Where(predicate).AsQueryable();
 
         public TModel FindById(Guid id) => _context.Set<TModel>().Find(id);
 

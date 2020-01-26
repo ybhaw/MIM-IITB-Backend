@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MIM_IITB.Data.Interface
 {
     public interface IRepository<TModel> where TModel : class
     {
-        IEnumerable<TModel> GetAll();
-        IEnumerable<TModel> Find(Func<TModel, bool> predicate);
+        IQueryable<TModel> GetAll();
+        IQueryable<TModel> Find(Func<TModel, bool> predicate);
         TModel FindById(Guid Id);
         void Create(TModel entity);
         Task CreateAsync(TModel entity);
