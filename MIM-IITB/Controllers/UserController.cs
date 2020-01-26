@@ -1,136 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Options;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MIM_IITB.Data.Entities;
 using MIM_IITB.Data.Interface;
-using MIM_IITB.Data.Models;
-using MIM_IITB.Data.Models.User;
-using MIM_IITB.Data.Repository;
+using MIM_IITB.Data.Requests;
+using MIM_IITB.Data.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using MIM_IITB.Helpers;
+using MIM_IITB.Policies;
 
 namespace MIM_IITB.Controllers
 {
-    [Authorize]
+    
     [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+    [Route("User")]
+    public class UserController : ControllerBase
     {
-        private IUserRepository _userRepository;
-        private IMapper _mapper;
-        private readonly AppSettings _appSettings;
+        protected readonly IMapper _mapper;
+        protected readonly IUserRepository _user;
+        protected readonly IAuthUserRepository _authUser;
+        protected readonly DatabaseContext _context;
 
-        public UsersController(
-            IUserRepository userRepository,
-            IMapper mapper,
-            IOptions<AppSettings> appSettings)
+        public UserController(IMapper mapper, IUserRepository userRepository, IAuthUserRepository authUser, DatabaseContext context)
         {
-            _userRepository = userRepository;
-            _mapper = mapper;
-            _appSettings = appSettings.Value;
+            this._mapper = mapper;
+            this._user = userRepository;
+            this._authUser = authUser;
+            this._context = context;
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
-            var user = _userRepository.Authenticate(model.Email, model.Password);
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            // return basic user info and authentication token
-            return Ok(new
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Name = user.Name,
-                Token = tokenString
-            });
+            User user = new User();
+            _mapper.Map(registerUser, user);
+            await _user.CreateAsync(user);
+            user = _user.Find(u => u.Email == user.Email).FirstOrDefault();
+            
+            return Ok(_mapper.Map(user,new UserViewModel()));
         }
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel model)
-        {
-            // map model to entity
-            var user = _mapper.Map<User>(model);
-
-            try
-            {
-                // create user
-                _userRepository.Create(user, model.Password);
-                return Ok();
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userRepository.GetAll();
-            var model = _mapper.Map<IList<UserModel>>(users);
-            return Ok(model);
-        }
+        public async Task<List<UserViewModel>> Users() =>
+            await _user.GetAll().Select(c => _mapper.Map(c, new UserViewModel())).ToListAsync();
 
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public UserViewModel Get(Guid id) =>
+            _mapper.Map(_user.FindById(id), new UserViewModel());
+
+        [HttpPut]
+        public UserViewModel Put(Guid id, [FromBody] UpdateUser updateUser)
         {
-            var user = _userRepository.GetById(id);
-            var model = _mapper.Map<UserModel>(user);
-            return Ok(model);
+            var user = _user.FindById(id);
+            _mapper.Map(updateUser, user);
+            _user.Update(user);
+            return _mapper.Map(_user.FindById(id), new UserViewModel());
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(Guid id, [FromBody]UpdateModel model)
+        [HttpPost("Authenticate")]
+        public IActionResult Authenticate([FromBody] AuthenticateUser authenticateUser)
         {
-            // map model to entity and set id
-            var user = _mapper.Map<User>(model);
-            user.Id = id;
-
-            try
+            var queryable = _user.Find(c =>
+                c.Email == authenticateUser.Email && Authentication.ValidateUser(c, authenticateUser.Password));
+            if(!queryable.Any()) return BadRequest();
+            else
             {
-                // update user 
-                _userRepository.Update(user, model.Password);
-                return Ok();
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
+                User user = queryable.FirstOrDefault();
+                string token = Authentication.GenerateToken(user);
+                AuthUser authUser = new AuthUser(user,token, authenticateUser.Remember);
+                _context.RemoveRange(_context.AuthUsers.Where(c => c.User == user));
+                _context.AuthUsers.Add(authUser);
+                _context.SaveChanges();
+                return Ok(_mapper.Map(authUser, new TokenedUserViewModel()));
             }
         }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
-        {
-            _userRepository.Delete(id);
-            return Ok();
-        }
+        [HttpDelete("Delete/{id}")]
+        public void Delete(Guid id) =>
+            _user.Delete(_user.FindById(id));
     }
 }

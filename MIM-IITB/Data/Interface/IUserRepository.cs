@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections;
+using System.Linq;
 using MIM_IITB.Data.Entities;
 
 namespace MIM_IITB.Data.Interface
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
-        User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-        User GetById(Guid id);
-        User Create(User user, string password);
-        void Update(User user, string password = null);
-        void Delete(Guid id);
     }
 }

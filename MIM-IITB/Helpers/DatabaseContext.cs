@@ -7,6 +7,8 @@ namespace MIM_IITB.Helpers
     {
         public DbSet<Food> Foods { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<AuthUser> AuthUsers { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
