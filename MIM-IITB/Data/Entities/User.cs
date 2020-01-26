@@ -18,5 +18,6 @@ namespace MIM_IITB.Data.Entities
         
         public List<Role> Roles { get; set; } = new List<Role>();
         public bool HasRole(Role role) => this.Roles.Contains(role);
+        public bool HasRole(string role) => this.Roles.Any(c => c.Name == role);
     }
 }

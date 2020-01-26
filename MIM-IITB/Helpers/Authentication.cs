@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -10,11 +9,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 using MIM_IITB.Data.Entities;
 using MIM_IITB.Data.Interface;
 using MIM_IITB.Data.Requests;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace MIM_IITB.Helpers
 {
@@ -96,23 +93,6 @@ namespace MIM_IITB.Helpers
         public static IApplicationBuilder UseAuthenticationMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<AuthenticationMiddleware>();
-        }
-    }
-    public class AddAuthenticationHeaderParameter : IOperationFilter
-    {
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
-            operation.Parameters = new List<OpenApiParameter>
-            {
-                new OpenApiParameter
-                {
-                    Name = "authorize",
-                    In = ParameterLocation.Header,
-                    Description = "Token to grant access",
-                    Required = false,
-                    Schema = new OpenApiSchema {Type = "String", Default = new OpenApiString("authorize ")}
-                }
-            };
         }
     }
 }
