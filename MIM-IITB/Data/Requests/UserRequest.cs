@@ -1,4 +1,6 @@
-﻿namespace MIM_IITB.Data.Requests
+﻿using System;
+
+namespace MIM_IITB.Data.Requests
 {
     public class RegisterUser
     {
@@ -22,5 +24,11 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public bool Remember { get; set; } = false;
+    }
+
+    public class AddRole
+    {
+        public Guid Id { get; set; }
+        public string RoleName { get; set; }
     }
 }

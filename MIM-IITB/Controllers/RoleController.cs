@@ -8,14 +8,12 @@ namespace MIM_IITB.Controllers
 {
     [ApiController]
     [Route("Role")]
-    public class RoleController : ControllerBase
+    public class RoleController : BaseController
     {
         private readonly IRoleRepository _roleRepository;
-        private readonly DatabaseContext _context;
-        public RoleController(IRoleRepository role, DatabaseContext context)
+        public RoleController(IRoleRepository role, DatabaseContext context) : base(context)
         {
             _roleRepository = role;
-            _context = context;
         }
         
         [HttpGet]

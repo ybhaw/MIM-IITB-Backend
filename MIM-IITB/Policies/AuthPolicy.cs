@@ -82,12 +82,15 @@ namespace MIM_IITB.Policies
         {
             if(!UserExists(context)) 
                 DenyRequest(context);
+            else
+            {
+                var authUser = GetUser(context);
+                if (authUser.User.Roles.Any(c => c.Elevation == 0)) return;
+                if (string.IsNullOrEmpty(_role)) return;
+                if(!authUser.User.HasRole(_role))
+                    DenyRequest(context); 
+            }
             
-            var authUser = GetUser(context);
-            if (authUser.User.Roles.Any(c => c.Elevation == 0)) return;
-            if (string.IsNullOrEmpty(_role)) return;
-            if(!authUser.User.HasRole(_role))
-                DenyRequest(context);
         }
     }
 
@@ -103,8 +106,11 @@ namespace MIM_IITB.Policies
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             if(!UserExists(context)) DenyRequest(context);
-            var authUser = GetUser(context);
-            if (authUser.User.Roles.Any(c => c.Elevation <= _elevation)) return;
+            else
+            {
+                var authUser = GetUser(context);
+                if (authUser.User.Roles.Any(c => c.Elevation <= _elevation)) return;
+            }
             DenyRequest(context);                
         }
     }

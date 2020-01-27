@@ -19,19 +19,15 @@ namespace MIM_IITB.Controllers
     
     [ApiController]
     [Route("User")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
-        protected readonly IMapper _mapper;
         protected readonly IUserRepository _user;
         protected readonly IAuthUserRepository _authUser;
-        protected readonly DatabaseContext _context;
 
-        public UserController(IMapper mapper, IUserRepository userRepository, IAuthUserRepository authUser, DatabaseContext context)
+        public UserController(IMapper mapper, IUserRepository userRepository, IAuthUserRepository authUser, DatabaseContext context) : base(context,mapper)
         {
-            this._mapper = mapper;
             this._user = userRepository;
             this._authUser = authUser;
-            this._context = context;
         }
 
         [HttpPost]
@@ -79,8 +75,24 @@ namespace MIM_IITB.Controllers
                 return Ok(_mapper.Map(authUser, new TokenedUserViewModel()));
             }
         }
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("Delete")]
         public void Delete(Guid id) =>
             _user.Delete(_user.FindById(id));
+
+        [HttpPost("AddRole")]
+        public IActionResult AddRole([FromBody] AddRole addRole)
+        {
+            _user.FindById(addRole.Id).Roles.Add(_context.Roles.First(c => c.Name == addRole.RoleName));
+            return Ok(_context.Users.Include(c => c.Roles).FirstOrDefault(c => c.Id == addRole.Id));
+        }
+
+        [HttpDelete("UpdateRole")]
+        public IActionResult RemoveRole([FromBody] AddRole addRole)
+        {
+            _user.FindById(addRole.Id).Roles.RemoveAll(c=>true);
+            _user.FindById(addRole.Id).Roles.Add(_context.Roles.First(c=>c.Name==addRole.RoleName));
+            _context.SaveChanges();
+            return Ok(_context.Users.Include(c => c.Roles).FirstOrDefault(c => c.Id == addRole.Id));
+        }
     }
 }

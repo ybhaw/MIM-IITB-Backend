@@ -5,7 +5,6 @@ namespace MIM_IITB.Data.Entities
     public class Food : EntityBase
     {
         public string Name { get; set; }
-        public string Brand { get; set; }
         public decimal TotalValue { get; set; }
         public bool Expirable { get; set; } = false;
         public List<FoodType> FoodTypes { get; set; }

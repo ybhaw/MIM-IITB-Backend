@@ -12,6 +12,7 @@ using MIM_IITB.Data.Entities;
 using MIM_IITB.Data.Interface;
 using MIM_IITB.Data.Repository;
 using MIM_IITB.Helpers;
+using RestSharp.Newtonsoft.Json.NetCore;
 
 namespace MIM_IITB
 {
@@ -32,7 +33,8 @@ namespace MIM_IITB
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAuthUserRepository, AuthUserRepository>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(option=>
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             services.AddSwaggerGen(c =>
             {
@@ -51,7 +53,8 @@ namespace MIM_IITB
             app.UseAuthenticationMiddleware();
             
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json",
+            app.UseSwaggerUI(
+                c => { c.SwaggerEndpoint("/swagger/v1/swagger.json",
                 $"{Configuration["ProjectName"]} {Configuration["Version"]}"); });
             app.UseHttpsRedirection();
             app.UseCors();

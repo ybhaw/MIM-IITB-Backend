@@ -8,17 +8,16 @@ namespace MIM_IITB.Helpers
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            operation.Parameters = new List<OpenApiParameter>
+            if(operation.Parameters == null)
+                operation.Parameters = new List<OpenApiParameter>();
+            operation.Parameters.Add(new OpenApiParameter
             {
-                new OpenApiParameter
-                {
-                    Name = "authorize",
-                    In = ParameterLocation.Header,
-                    Description = "Token to grant access",
-                    Required = false,
-                    Schema = new OpenApiSchema {Type = "String"}
-                }
-            };
+                Name = "authorize",
+                In = ParameterLocation.Header,
+                Description = "Token to grant access",
+                Required = false,
+                Schema = new OpenApiSchema {Type = "String"}
+            });
         }
     }
 }
