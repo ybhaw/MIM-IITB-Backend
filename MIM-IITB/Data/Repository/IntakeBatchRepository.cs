@@ -13,9 +13,20 @@ namespace MIM_IITB.Data.Repository
         {
         }
 
-        public IQueryable<IntakeBatch> IntakeBatches(Func<IntakeBatch, bool> predicate) =>
+        public IQueryable<IntakeBatch> FindWithIntakeIncludes(Func<IntakeBatch, bool> predicate) =>
             _context.IntakeBatches
                 .Include(c => c.Intakes)
+                .Where(predicate).AsQueryable();
+
+        public IQueryable<IntakeBatch> IncludeAll() =>
+            _context.IntakeBatches
+                .Include(c => c.Intakes)
+                .Include(c=>c.Vendor);
+
+        public IQueryable<IntakeBatch> FindWithAllIncludes(Func<IntakeBatch, bool> predicate) =>
+            _context.IntakeBatches
+                .Include(c=>c.Intakes)
+                .Include(c=>c.Vendor)
                 .Where(predicate).AsQueryable();
     }
 }

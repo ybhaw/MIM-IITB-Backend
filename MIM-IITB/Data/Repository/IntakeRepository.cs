@@ -17,7 +17,6 @@ namespace MIM_IITB.Data.Repository
             _context.Intakes
                 .Include(c => c.Food)
                 .Include(c => c.FoodType)
-                .Include(c => c.Vendor)
                 .Where(predicate).AsQueryable();
     }
 }

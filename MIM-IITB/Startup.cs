@@ -30,9 +30,14 @@ namespace MIM_IITB
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration["database"]));
             services.AddTransient<IFoodRepository, FoodRepository>();
+            services.AddTransient<IFoodTypeRepository, FoodTypeRepository>();
+            services.AddTransient<IAuthUserRepository, AuthUserRepository>();
+            services.AddTransient<IIntakeRepository, IntakeRepository>();
+            services.AddTransient<IIntakeBatchRepository, IntakeBatchRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IAuthUserRepository, AuthUserRepository>();
+            services.AddTransient<IVendorRepository, VendorRepository>();
+            
             services.AddControllers().AddNewtonsoftJson(option=>
                 option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             

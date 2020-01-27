@@ -6,6 +6,6 @@ namespace MIM_IITB.Data.Interface
 {
     public interface IIntakeBatchRepository : IRepository<IntakeBatch>
     {
-        IQueryable<IntakeBatch> IntakeBatches(Func<IntakeBatch, bool> predicate);
+        IQueryable<IntakeBatch> FindWithIntakeIncludes(Func<IntakeBatch, bool> predicate);
     }
 }

@@ -71,9 +71,36 @@ namespace MIM_IITB.Helpers
                 .ForMember(dest => dest.Food,
                     opt => opt.MapFrom(src => src.Food))
                 .AfterMap((src, dest) => dest.Food.FoodTypes = new List<FoodType>() {dest});
+            CreateMap<FoodTypeWithFoodIdRequest, FoodType>();
+            CreateMap<FoodTypeUpdateRequest, FoodType>();
             CreateMap<Food, FoodBaseViewModel>();
             CreateMap<Food, FoodWithFoodTypesViewModel>();
             CreateMap<FoodType, FoodTypeBaseViewModel>();
+            CreateMap<FoodType, FoodTypeWithFoodViewModel>()
+                .ForMember(dest=>dest.Food,  
+                    opt=>opt.MapFrom(src=>src.Food));
+            CreateMap<FoodType, FoodTypeWithFoodIdViewModel>();
+
+            CreateMap<IntakeRequest, Intake>();
+            CreateMap<IntakeUpdateRequest, Intake>();
+            CreateMap<Intake, IntakeBaseViewModel>();
+            CreateMap<Intake, IntakeWithAllIncludes>()
+                .ForMember(dest => dest.Food,
+                    opt => opt.MapFrom(src => src.Food))
+                .ForMember(dest => dest.FoodType,
+                    opt => opt.MapFrom(src => src.FoodType));
+
+            CreateMap<IntakeBatchBaseRequest, IntakeBatch>();
+            CreateMap<IntakeBatchRequest, IntakeBatch>()
+                .ForMember(dest => dest.Intakes,
+                    opt => opt.MapFrom(src => src.IntakeRequests));
+            CreateMap<IntakeBatchUpdateRequest, IntakeBatch>();
+            CreateMap<IntakeBatch, IntakeBatchBaseViewModel>();
+            CreateMap<IntakeBatch, IntakeBatchWithAllIncludeViewModel>()
+                .ForMember(dest=>dest.Intakes,
+                    opt=>opt.MapFrom(src=>src.Intakes))
+                .ForMember(dest=>dest.Vendor,
+                    opt=>opt.MapFrom(src=>src.Vendor));
         }
     }
 }
