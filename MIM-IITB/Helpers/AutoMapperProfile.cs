@@ -101,6 +101,75 @@ namespace MIM_IITB.Helpers
                     opt=>opt.MapFrom(src=>src.Intakes))
                 .ForMember(dest=>dest.Vendor,
                     opt=>opt.MapFrom(src=>src.Vendor));
+
+            CreateMap<VendorBaseRequest, Vendor>();
+            CreateMap<VendorWithAllIncludesRequest, Vendor>()
+                .ForMember(dest => dest.Batches,
+                    opt => opt.MapFrom(src => src.IntakeBatches))
+                .ForMember(dest=>dest.Supplies,
+                    opt=>opt.MapFrom(src=>src.FoodTypes));
+            CreateMap<VendorUpdateRequest, Vendor>()
+                .ForMember(dest => dest.Batches,
+                    opt => opt.MapFrom(src => src.IntakeBatches))
+                .ForMember(dest => dest.Supplies,
+                    opt => opt.MapFrom(src => src.FoodTypes));
+            CreateMap<Vendor, VendorBaseViewModel>();
+            CreateMap<Vendor, VendorWithAllIncludesViewModel>()
+                .ForMember(dest => dest.IntakeBatches,
+                    opt => opt.MapFrom(src => src.Batches))
+                .ForMember(dest => dest.Foods,
+                    opt => opt.MapFrom(src => src.Supplies));
+
+            CreateMap<CookBaseRequest, Cook>();
+            CreateMap<CookRequest, Cook>()
+                .ForMember(dest=>dest.OuttakeBatches,
+                    opt=>opt.MapFrom(src=>src.OuttakeBatches));
+            CreateMap<CookUpdateRequest, Cook>()
+                .ForMember(dest=>dest.OuttakeBatches,
+                    opt=>opt.MapFrom(src=>src.OuttakeBatches));
+            CreateMap<Cook, CookBaseViewModel>();
+            CreateMap<Cook, CookViewModel>()
+                .ForMember(dest => dest.OuttakeBatches,
+                    opt => opt.MapFrom(src => src.OuttakeBatches));
+
+            CreateMap<OuttakeBaseRequest, Outtake>();
+            CreateMap<OuttakeRequest, Outtake>()
+                .ForMember(dest => dest.Food,
+                    opt => opt.MapFrom(src => src.Food))
+                .ForMember(dest => dest.OuttakeBatch,
+                    opt => opt.MapFrom(src => src.OuttakeBatch));
+            CreateMap<OuttakeUpdateRequest, Outtake>()
+                .ForMember(dest => dest.Food,
+                    opt => opt.MapFrom(src => src.Food))
+                .ForMember(dest => dest.OuttakeBatch,
+                    opt => opt.MapFrom(src => src.OuttakeBatch));
+            CreateMap<Outtake, OuttakeViewModel>();
+            CreateMap<Outtake, OuttakeViewModel>()
+                .ForMember(dest => dest.Food,
+                    opt => opt.MapFrom(src => src.Food))
+                .ForMember(dest => dest.OuttakeBatch,
+                    opt => opt.MapFrom(src => src.OuttakeBatch));
+            CreateMap<Outtake, OuttakeWithFoodOnlyViewModel>()
+                .ForMember(dest => dest.Food,
+                    opt => opt.MapFrom(src => src.Food));
+            
+            CreateMap<OuttakeBatchBaseRequest, OuttakeBatch>();
+            CreateMap<OuttakeBatchRequest, OuttakeBatch>()
+                .ForMember(dest => dest.Cook,
+                    opt => opt.MapFrom(src => src.Cook))
+                .ForMember(dest => dest.Outtakes,
+                    opt => opt.MapFrom(src => src.Outtakes));
+            CreateMap<OuttakeBatchUpdateRequest, OuttakeBatch>()
+                .ForMember(dest => dest.Cook,
+                    opt => opt.MapFrom(src => src.Cook))
+                .ForMember(dest => dest.Outtakes,
+                    opt => opt.MapFrom(src => src.Outtakes));
+            CreateMap<OuttakeBatch, OuttakeBatchBaseViewModel>();
+            CreateMap<OuttakeBatch, OuttakeBatchViewModel>()
+                .ForMember(dest => dest.Cook,
+                    opt => opt.MapFrom(src => src.Cook))
+                .ForMember(dest => dest.Outtakes,
+                    opt => opt.MapFrom(src => src.Outtakes));
         }
     }
 }

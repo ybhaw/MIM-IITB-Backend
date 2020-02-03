@@ -11,12 +11,12 @@ namespace MIM_IITB.Data.Entities
         public string Email { get; set; }
         public string Address { get; set; }
         
-        public List<Food> Supplies { get; set; } 
+        public List<FoodType> Supplies { get; set; } 
         public List<IntakeBatch> Batches { get; set; }
 
         public Vendor()
         {
-            Supplies = new List<Food>();
+            Supplies = new List<FoodType>();
             Batches = new List<IntakeBatch>();
         }
     }

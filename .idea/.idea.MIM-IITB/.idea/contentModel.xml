@@ -42,6 +42,7 @@
             <e p="IFoodTypeRepository.cs" t="Include" />
             <e p="IIntakeBatchRepository.cs" t="Include" />
             <e p="IIntakeRepository.cs" t="Include" />
+            <e p="IOuttakeBatchRepository.cs" t="Include" />
             <e p="IOuttakeRepository.cs" t="Include" />
             <e p="IRepository.cs" t="Include" />
             <e p="IRoleRepository.cs" t="Include" />
@@ -55,24 +56,32 @@
             <e p="FoodTypeRepository.cs" t="Include" />
             <e p="IntakeBatchRepository.cs" t="Include" />
             <e p="IntakeRepository.cs" t="Include" />
+            <e p="OuttakeBatchRepository.cs" t="Include" />
+            <e p="OuttakeRepository.cs" t="Include" />
             <e p="Repository.cs" t="Include" />
             <e p="RoleRepository.cs" t="Include" />
             <e p="UserRepository.cs" t="Include" />
             <e p="VendorRepository.cs" t="Include" />
           </e>
           <e p="Requests" t="Include">
+            <e p="CookRequest.cs" t="Include" />
             <e p="FoodRequest.cs" t="Include" />
             <e p="FoodTypeRequest.cs" t="Include" />
             <e p="IntakeBatchRequest.cs" t="Include" />
             <e p="IntakeRequest.cs" t="Include" />
+            <e p="OuttakeBatchRequest.cs" t="Include" />
+            <e p="OuttakeRequest.cs" t="Include" />
             <e p="UserRequest.cs" t="Include" />
             <e p="VendorRequest.cs" t="Include" />
           </e>
           <e p="ViewModels" t="Include">
+            <e p="CookViewModel.cs" t="Include" />
             <e p="FoodTypeViewModel.cs" t="Include" />
             <e p="FoodViewModel.cs" t="Include" />
             <e p="IntakeBatchViewModel.cs" t="Include" />
             <e p="IntakeViewModel.cs" t="Include" />
+            <e p="OuttakeBatchViewModel.cs" t="Include" />
+            <e p="OuttakeViewModel.cs" t="Include" />
             <e p="UserViewModel.cs" t="Include" />
             <e p="VendorViewModel.cs" t="Include" />
             <e p="ViewModelBase.cs" t="Include" />
