@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\vaibh\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\vaibh\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_MIM-IITB.644273014.00" t="ExcludeRecursive" />
+    <e p="C:\Users\vaibh\RiderProjects\MIM-IITB-Backend" t="IncludeFlat">
+      <e p="MIM-IITB" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="BaseController.cs" t="Include" />
+          <e p="CookController.cs" t="Include" />
+          <e p="FoodController.cs" t="Include" />
+          <e p="FoodTypeController.cs" t="Include" />
+          <e p="IntakeBatchController.cs" t="Include" />
+          <e p="IntakeController.cs" t="Include" />
+          <e p="OuttakeController.cs" t="Include" />
+          <e p="RoleController.cs" t="Include" />
+          <e p="UserController.cs" t="Include" />
+          <e p="VendorController.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="Entities" t="Include">
+            <e p="AuthUser.cs" t="Include" />
+            <e p="Cook.cs" t="Include" />
+            <e p="EntityBase.cs" t="Include" />
+            <e p="Food.cs" t="Include" />
+            <e p="FoodType.cs" t="Include" />
+            <e p="Intake.cs" t="Include" />
+            <e p="IntakeBatch.cs" t="Include" />
+            <e p="Outtake.cs" t="Include" />
+            <e p="OuttakeBatch.cs" t="Include" />
+            <e p="Role.cs" t="Include" />
+            <e p="User.cs" t="Include" />
+            <e p="Vendor.cs" t="Include" />
+          </e>
+          <e p="Interface" t="Include">
+            <e p="IAuthUserRepository.cs" t="Include" />
+            <e p="ICookRepository.cs" t="Include" />
+            <e p="IFoodRepository.cs" t="Include" />
+            <e p="IFoodTypeRepository.cs" t="Include" />
+            <e p="IIntakeBatchRepository.cs" t="Include" />
+            <e p="IIntakeRepository.cs" t="Include" />
+            <e p="IOuttakeRepository.cs" t="Include" />
+            <e p="IRepository.cs" t="Include" />
+            <e p="IRoleRepository.cs" t="Include" />
+            <e p="IUserRepository.cs" t="Include" />
+            <e p="IVendorRepository.cs" t="Include" />
+          </e>
+          <e p="Repository" t="Include">
+            <e p="AuthUserRepository.cs" t="Include" />
+            <e p="CookRepository.cs" t="Include" />
+            <e p="FoodRepository.cs" t="Include" />
+            <e p="FoodTypeRepository.cs" t="Include" />
+            <e p="IntakeBatchRepository.cs" t="Include" />
+            <e p="IntakeRepository.cs" t="Include" />
+            <e p="Repository.cs" t="Include" />
+            <e p="RoleRepository.cs" t="Include" />
+            <e p="UserRepository.cs" t="Include" />
+            <e p="VendorRepository.cs" t="Include" />
+          </e>
+          <e p="Requests" t="Include">
+            <e p="FoodRequest.cs" t="Include" />
+            <e p="FoodTypeRequest.cs" t="Include" />
+            <e p="IntakeBatchRequest.cs" t="Include" />
+            <e p="IntakeRequest.cs" t="Include" />
+            <e p="UserRequest.cs" t="Include" />
+            <e p="VendorRequest.cs" t="Include" />
+          </e>
+          <e p="ViewModels" t="Include">
+            <e p="FoodTypeViewModel.cs" t="Include" />
+            <e p="FoodViewModel.cs" t="Include" />
+            <e p="IntakeBatchViewModel.cs" t="Include" />
+            <e p="IntakeViewModel.cs" t="Include" />
+            <e p="UserViewModel.cs" t="Include" />
+            <e p="VendorViewModel.cs" t="Include" />
+            <e p="ViewModelBase.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="AddAuthenticationHeaderParameter.cs" t="Include" />
+          <e p="AppSettings.cs" t="Include" />
+          <e p="Authentication.cs" t="Include" />
+          <e p="AutoMapperProfile.cs" t="Include" />
+          <e p="Constants.cs" t="Include" />
+          <e p="DatabaseContext.cs" t="Include" />
+          <e p="RoleGenerator.cs" t="Include" />
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="20200123100536_InitialMigrationTable.cs" t="Include" />
+          <e p="20200123100536_InitialMigrationTable.Designer.cs" t="Include" />
+          <e p="20200124234953_InitialMigrations.cs" t="Include" />
+          <e p="20200124234953_InitialMigrations.Designer.cs" t="Include" />
+          <e p="20200125082610_AddAuthUserTable.cs" t="Include" />
+          <e p="20200125082610_AddAuthUserTable.Designer.cs" t="Include" />
+          <e p="20200126063318_UpdatedRolesTable.cs" t="Include" />
+          <e p="20200126063318_UpdatedRolesTable.Designer.cs" t="Include" />
+          <e p="20200126092123_AddIntakeTables.cs" t="Include" />
+          <e p="20200126092123_AddIntakeTables.Designer.cs" t="Include" />
+          <e p="DatabaseContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="MIM-IITB.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="MIM-IITB.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Policies" t="Include">
+          <e p="AuthPolicy.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="WeatherForecast.cs" t="Include" />
+      </e>
+      <e p="MIM-IITB.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

@@ -37,7 +37,6 @@ namespace MIM_IITB
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IVendorRepository, VendorRepository>();
-            
             services.AddControllers().AddNewtonsoftJson(option=>
                 option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
